@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
-import { createFitnessService } from "../services/fitnessService.js";
+import { createFitnessService } from "../services/firestoreFitnessService.js";
 import { FitnessCalendar } from "../components/Fitness/FitnessCalendar.jsx";
 import { FitnessDayForm } from "../components/Fitness/FitnessDayForm.jsx";
 import { FitnessNotes } from "../components/Fitness/FitnessNotes.jsx";
 import { FitnessAnalytics } from "../components/Fitness/FitnessAnalytics.jsx";
 
 export const FitnessTrackerPage = () => {
-  const { token } = useAuth();
-  const fitnessService = createFitnessService(() => token);
+  const { user } = useAuth();
+  const fitnessService = createFitnessService(() => user?._id ?? user?.id);
   const today = new Date();
   const [year, setYear] = useState(today.getFullYear());
   const [monthIndex, setMonthIndex] = useState(today.getMonth());

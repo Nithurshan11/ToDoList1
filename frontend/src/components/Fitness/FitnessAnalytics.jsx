@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
 import { useAuth } from "../../context/AuthContext.jsx";
-import { createFitnessService } from "../../services/fitnessService.js";
+import { createFitnessService } from "../../services/firestoreFitnessService.js";
 
 export const FitnessAnalytics = ({ monthKey }) => {
-  const { token } = useAuth();
-  const fitnessService = createFitnessService(() => token);
+  const { user } = useAuth();
+  const fitnessService = createFitnessService(() => user?._id ?? user?.id);
   const [data, setData] = useState(null);
 
   useEffect(() => {

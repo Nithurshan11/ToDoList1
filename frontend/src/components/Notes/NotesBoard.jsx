@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createNotesService } from "../../services/notesService.js";
+import { createNotesService } from "../../services/firestoreNotesService.js";
 import { useAuth } from "../../context/AuthContext.jsx";
 
 const palette = ["#FDE68A", "#A5B4FC", "#BFDBFE", "#F9A8D4", "#BBF7D0"];
@@ -64,8 +64,8 @@ const NoteCard = ({ note, onChange, onDelete }) => {
 };
 
 export const NotesBoard = () => {
-  const { token } = useAuth();
-  const notesService = createNotesService(() => token);
+  const { user } = useAuth();
+  const notesService = createNotesService(() => user?._id ?? user?.id);
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [color, setColor] = useState(palette[0]);

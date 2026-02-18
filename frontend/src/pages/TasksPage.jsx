@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
-import { createTasksService } from "../services/tasksService.js";
+import { createTasksService } from "../services/firestoreTasksService.js";
 import { TaskForm } from "../components/Tasks/TaskForm.jsx";
 import { TaskList } from "../components/Tasks/TaskList.jsx";
 import { TaskFilters } from "../components/Tasks/TaskFilters.jsx";
 import { TaskHistory } from "../components/Tasks/TaskHistory.jsx";
 
 export const TasksPage = () => {
-  const { token } = useAuth();
-  const tasksService = createTasksService(() => token);
+  const { user } = useAuth();
+  const tasksService = createTasksService(() => user?._id ?? user?.id);
   const [tasks, setTasks] = useState([]);
   const [history, setHistory] = useState([]);
   const [filters, setFilters] = useState({});
